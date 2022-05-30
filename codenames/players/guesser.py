@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Guesser(ABC):
     """guesser abstract class that mimics a field operative in the codenames game"""
 
@@ -42,7 +43,9 @@ class HumanGuesser(Guesser):
         self.words = words
 
     def get_answer(self):
-        answer_input = input("Guesser makes turn.\nPlease enter a valid Word >> ")
+
+        answer_input = input(
+            "Guesser makes turn.\nPlease enter a valid Word >> ")
         type(answer_input)
 
         while not self._is_valid(answer_input):
@@ -53,7 +56,10 @@ class HumanGuesser(Guesser):
         return answer_input
 
     def keep_guessing(self):
-        return True
+        res = ""
+        while res not in ["y", "n"]:
+            res = input("Keep guessing? (y/n) >> ")
+        return res == 'y'
 
     def _is_valid(self, result):
         if result.upper() in self.words:

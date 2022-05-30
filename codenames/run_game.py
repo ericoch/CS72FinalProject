@@ -8,6 +8,7 @@ from game import Game
 from players.guesser import *
 from players.codemaster import *
 
+
 class GameRun:
     """Class that builds and runs a Game based on command line arguments"""
 
@@ -15,19 +16,30 @@ class GameRun:
         parser = argparse.ArgumentParser(
             description="Run the Codenames AI competition game.",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        parser.add_argument("codemaster", help="import string of form A.B.C.MyClass or 'human'")
-        parser.add_argument("guesser", help="import string of form A.B.C.MyClass or 'human'")
-        parser.add_argument("--seed", help="Random seed value for board state -- integer or 'time'", default='time')
+        parser.add_argument(
+            "codemaster", help="import string of form A.B.C.MyClass or 'human'")
+        parser.add_argument(
+            "guesser", help="import string of form A.B.C.MyClass or 'human'")
+        parser.add_argument(
+            "--seed", help="Random seed value for board state -- integer or 'time'", default='time')
 
-        parser.add_argument("--w2v", help="Path to w2v file or None", default=None)
-        parser.add_argument("--glove", help="Path to glove file or None", default=None)
-        parser.add_argument("--wordnet", help="Name of wordnet file or None, most like ic-brown.dat", default=None)
-        parser.add_argument("--glove_cm", help="Path to glove file or None", default=None)
-        parser.add_argument("--glove_guesser", help="Path to glove file or None", default=None)
+        parser.add_argument(
+            "--w2v", help="Path to w2v file or None", default=None)
+        parser.add_argument(
+            "--glove", help="Path to glove file or None", default=None)
+        parser.add_argument(
+            "--wordnet", help="Name of wordnet file or None, most like ic-brown.dat", default=None)
+        parser.add_argument(
+            "--glove_cm", help="Path to glove file or None", default=None)
+        parser.add_argument("--glove_guesser",
+                            help="Path to glove file or None", default=None)
 
-        parser.add_argument("--no_log", help="Supress logging", action='store_true', default=False)
-        parser.add_argument("--no_print", help="Supress printing", action='store_true', default=False)
-        parser.add_argument("--game_name", help="Name of game in log", default="default")
+        parser.add_argument("--no_log", help="Supress logging",
+                            action='store_true', default=False)
+        parser.add_argument("--no_print", help="Supress printing",
+                            action='store_true', default=False)
+        parser.add_argument(
+            "--game_name", help="Name of game in log", default="default")
 
         args = parser.parse_args()
 
@@ -123,4 +135,6 @@ if __name__ == "__main__":
                 cm_kwargs=game_setup.cm_kwargs,
                 g_kwargs=game_setup.g_kwargs)
 
+    # print("skip run")
+    # exit()
     game.run()

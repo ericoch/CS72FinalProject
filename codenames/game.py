@@ -11,6 +11,7 @@ import gensim.models.keyedvectors as word2vec
 import numpy as np
 from nltk.corpus import wordnet_ic
 
+
 class GameCondition(enum.Enum):
     """Enumeration that represents the different states of the game"""
     HIT_RED = 0
@@ -81,12 +82,14 @@ class Game:
         # load board words
         with open("game_wordpool.txt", "r") as f:
             temp = f.read().splitlines()
-            assert len(temp) == len(set(temp)), "game_wordpool.txt should not have duplicates"
+            assert len(temp) == len(
+                set(temp)), "game_wordpool.txt should not have duplicates"
             random.shuffle(temp)
             self.words_on_board = temp[:25]
 
         # set grid key for codemaster (spymaster)
-        self.key_grid = ["Red"] * 8 + ["Blue"] * 7 + ["Civilian"] * 9 + ["Assassin"]
+        self.key_grid = ["Red"] * 8 + ["Blue"] * \
+            7 + ["Civilian"] * 9 + ["Assassin"]
         random.shuffle(self.key_grid)
 
     def __del__(self):
@@ -121,22 +124,27 @@ class Game:
 
     def _display_board_codemaster(self):
         """prints out board with color-paired words, only for codemaster, color && stylistic"""
-        print(str.center("___________________________BOARD___________________________\n", 60))
+        print(str.center(
+            "___________________________BOARD___________________________\n", 60))
         counter = 0
         for i in range(len(self.words_on_board)):
             if counter >= 1 and i % 5 == 0:
                 print("\n")
             if self.key_grid[i] is 'Red':
-                print(str.center(colorama.Fore.RED + self.words_on_board[i], 15), " ", end='')
+                print(str.center(colorama.Fore.RED +
+                      self.words_on_board[i], 15), " ", end='')
                 counter += 1
             elif self.key_grid[i] is 'Blue':
-                print(str.center(colorama.Fore.BLUE + self.words_on_board[i], 15), " ", end='')
+                print(str.center(colorama.Fore.BLUE +
+                      self.words_on_board[i], 15), " ", end='')
                 counter += 1
             elif self.key_grid[i] is 'Civilian':
-                print(str.center(colorama.Fore.RESET + self.words_on_board[i], 15), " ", end='')
+                print(str.center(colorama.Fore.RESET +
+                      self.words_on_board[i], 15), " ", end='')
                 counter += 1
             else:
-                print(str.center(colorama.Fore.MAGENTA + self.words_on_board[i], 15), " ", end='')
+                print(str.center(colorama.Fore.MAGENTA +
+                      self.words_on_board[i], 15), " ", end='')
                 counter += 1
         print(str.center(colorama.Fore.RESET +
                          "\n___________________________________________________________", 60))
@@ -145,13 +153,15 @@ class Game:
     def _display_board(self):
         """prints the list of words in a board like fashion (5x5)"""
         print(colorama.Style.RESET_ALL)
-        print(str.center("___________________________BOARD___________________________", 60))
+        print(str.center(
+            "___________________________BOARD___________________________", 60))
         for i in range(len(self.words_on_board)):
             if i % 5 == 0:
                 print("\n")
             print(str.center(self.words_on_board[i], 10), " ", end='')
 
-        print(str.center("\n___________________________________________________________", 60))
+        print(str.center(
+            "\n___________________________________________________________", 60))
         print("\n")
 
     def _display_key_grid(self):
@@ -164,16 +174,20 @@ class Game:
             if counter >= 1 and i % 5 == 0:
                 print("\n")
             if self.key_grid[i] is 'Red':
-                print(str.center(colorama.Fore.RED + self.key_grid[i], 15), " ", end='')
+                print(str.center(colorama.Fore.RED +
+                      self.key_grid[i], 15), " ", end='')
                 counter += 1
             elif self.key_grid[i] is 'Blue':
-                print(str.center(colorama.Fore.BLUE + self.key_grid[i], 15), " ", end='')
+                print(str.center(colorama.Fore.BLUE +
+                      self.key_grid[i], 15), " ", end='')
                 counter += 1
             elif self.key_grid[i] is 'Civilian':
-                print(str.center(colorama.Fore.RESET + self.key_grid[i], 15), " ", end='')
+                print(str.center(colorama.Fore.RESET +
+                      self.key_grid[i], 15), " ", end='')
                 counter += 1
             else:
-                print(str.center(colorama.Fore.MAGENTA + self.key_grid[i], 15), " ", end='')
+                print(str.center(colorama.Fore.MAGENTA +
+                      self.key_grid[i], 15), " ", end='')
                 counter += 1
         print(str.center(colorama.Fore.RESET +
                          "\n___________________________________________________________", 55))
@@ -238,18 +252,18 @@ class Game:
         with open("results/bot_results.txt", "a") as f:
             f.write(
                 f'TOTAL:{num_of_turns} B:{blue_result} C:{civ_result} A:{assa_result}'
-                f' R:{red_result} CM:{type(self.codemaster).__name__} '
-                f'GUESSER:{type(self.guesser).__name__} SEED:{self.seed}\n'
+                f' R:{red_result} CM:{type(self.codemaster)} '
+                f'GUESSER:{type(self.guesser)} SEED:{self.seed}\n'
             )
 
         with open("results/bot_results_new_style.txt", "a") as f:
             results = {"game_name": self.game_name,
                        "total_turns": num_of_turns,
                        "R": red_result, "B": blue_result, "C": civ_result, "A": assa_result,
-                       "codemaster": type(self.codemaster).__name__,
-                       "guesser": type(self.guesser).__name__,
+                       "codemaster": str(type(self.codemaster)),
+                       "guesser": str(type(self.guesser)),
                        "seed": self.seed,
-                       "time_s": (self.game_end_time - self.game_start_time),
+                       "time_s": (self.game_end_time),
                        "cm_kwargs": {k: v if isinstance(v, float) or isinstance(v, int) or isinstance(v, str) else None
                                      for k, v in self.cm_kwargs.items()},
                        "g_kwargs": {k: v if isinstance(v, float) or isinstance(v, int) or isinstance(v, str) else None
@@ -265,6 +279,9 @@ class Game:
             shutil.rmtree("results")
 
     def run(self):
+        print(self.codemaster)
+        print(type(self.codemaster).__name__)
+        print(type(self.codemaster))
         """Function that runs the codenames game between codemaster and guesser"""
         game_condition = GameCondition.HIT_RED
         game_counter = 0
@@ -286,6 +303,7 @@ class Game:
 
             print('\n' * 2)
             self.guesser.set_clue(clue, clue_num)
+            self._display_board()
 
             game_condition = GameCondition.HIT_RED
             while guess_num <= clue_num and keep_guessing and game_condition == GameCondition.HIT_RED:
@@ -295,12 +313,14 @@ class Game:
                 # if no comparisons were made/found than retry input from codemaster
                 if guess_answer is None or guess_answer == "no comparisons":
                     break
-                guess_answer_index = words_in_play.index(guess_answer.upper().strip())
+                guess_answer_index = words_in_play.index(
+                    guess_answer.upper().strip())
                 game_condition = self._accept_guess(guess_answer_index)
 
                 if game_condition == GameCondition.HIT_RED:
+                    print("Hit red!")
                     print('\n' * 2)
-                    self._display_board_codemaster()
+                    self._display_board()
                     guess_num += 1
                     print("Keep Guessing? the clue is ", clue, clue_num)
                     keep_guessing = self.guesser.keep_guessing()
