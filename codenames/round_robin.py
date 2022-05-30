@@ -253,6 +253,7 @@ def generate_args():
         "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
         "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
         "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
+        "players.codemaster_glove_07.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.300.txt'],
         "players.codemaster_wn_lin.AICodemaster": [],
         "players.codemaster_random.AICodemaster": []
 
@@ -277,7 +278,6 @@ def generate_args():
                   '--wordnet', 'ic-brown.dat']
     for codemaster in codemasters:
         for guesser in guessers:
-
             for _ in range(NUM_GAMES):
                 arg_list.append(["python", "run_game.py", codemaster,
                                 guesser] + codemasters[codemaster] + guessers[guesser] + const_args)

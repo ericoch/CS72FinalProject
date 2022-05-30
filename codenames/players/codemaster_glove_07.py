@@ -51,14 +51,16 @@ class AICodemaster(Codemaster):
             for word in bad_words:
                 self.bad_word_dists[word] = {}
                 for val in self.cm_wordlist:
-                    b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
+                    b_dist = cos_dist(self.concatenate(
+                        val, all_vectors), self.concatenate(word, all_vectors))
                     self.bad_word_dists[word][val] = b_dist
 
             self.red_word_dists = {}
             for word in red_words:
                 self.red_word_dists[word] = {}
                 for val in self.cm_wordlist:
-                    b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
+                    b_dist = cos_dist(self.concatenate(
+                        val, all_vectors), self.concatenate(word, all_vectors))
                     self.red_word_dists[word][val] = b_dist
 
         else:
@@ -114,7 +116,8 @@ class AICodemaster(Codemaster):
             best = np.inf
             worst_word = ''
             for word in best_red_word:
-                dist = cos_dist(self.concatenate(word, all_vectors), self.concatenate(combined_clue, all_vectors))
+                dist = cos_dist(self.concatenate(word, all_vectors),
+                                self.concatenate(combined_clue, all_vectors))
                 if dist > worst:
                     worst_word = word
                     worst = dist
