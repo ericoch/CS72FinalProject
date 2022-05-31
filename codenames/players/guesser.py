@@ -33,6 +33,8 @@ class HumanGuesser(Guesser):
     """Guesser derived class for human interaction"""
 
     def __init__(self):
+        print("HUMAN CODEMASTER")
+
         super().__init__()
         pass
 
