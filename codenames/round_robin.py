@@ -10,7 +10,7 @@ codemasters = {
     "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
     "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
     "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
-    # "players.codemaster_w2vglove_03.AICodemaster":  ['--glove_cm', 'players/glove/wikipedia-news-300d-1M.vec'],
+    # "players.codemaster_w2vglove_03.AICodemaster":  ['--glove_cm', 'players/glove/wiki-news-300d-1M.vec'],
     "players.codemaster_glove_07.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.300.txt'],
     "players.codemaster_wn_lin.AICodemaster": [],
     "players.codemaster_random.AICodemaster": []
@@ -314,7 +314,7 @@ def run_game(args):
 
 def main():
 
-    if sys.argv[1] == "--human":
+    if len(sys.argv) > 1 and sys.argv[1] == "--human":
         arg_list = generate_args_human()
         pool = mp.Pool(1)
 
