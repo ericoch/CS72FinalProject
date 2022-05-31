@@ -52,6 +52,8 @@ class Game:
             g_kwargs (dict, optional): 
                 kwargs passed to Guesser.
         """
+        self.human_codemaster = 'human' in str(type(self.codemaster))
+        self.human_guesser = 'human' in str(type(self.guesser))
 
         self.game_start_time = time.time()
         colorama.init()
@@ -291,8 +293,11 @@ class Game:
             words_in_play = self.get_words_on_board()
             current_key_grid = self.get_key_grid()
             self.codemaster.set_game_state(words_in_play, current_key_grid)
-            self._display_key_grid()
-            self._display_board_codemaster()
+            # self._display_key_grid()
+
+
+            if not self.human_guesser:
+                self._display_board_codemaster()
 
             # codemaster gives clue & number here
             clue, clue_num = self.codemaster.get_clue()
@@ -309,7 +314,7 @@ class Game:
             while guess_num <= clue_num and keep_guessing and game_condition == GameCondition.HIT_RED:
                 self.guesser.set_board(words_in_play)
                 guess_answer = self.guesser.get_answer()
-
+                print("GUESSER: ", guess_answer)
                 # if no comparisons were made/found than retry input from codemaster
                 if guess_answer is None or guess_answer == "no comparisons":
                     break

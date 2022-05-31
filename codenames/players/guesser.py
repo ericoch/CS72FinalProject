@@ -32,7 +32,7 @@ class Guesser(ABC):
 class HumanGuesser(Guesser):
     """Guesser derived class for human interaction"""
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         print("HUMAN CODEMASTER")
 
         super().__init__()

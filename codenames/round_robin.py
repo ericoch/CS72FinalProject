@@ -20,12 +20,11 @@ guessers = {
     "players.guesser_w2v.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_w2vglove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_wn_jcn.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_jcn.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_wn_lch.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_wn_lin.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_lin.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_wn_path.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_wn_res.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_wn_path.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_res.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_wn_wup.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.vector_guesser.VectorGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_random.AIGuesser": []
@@ -290,18 +289,20 @@ def generate_args():
 
 def generate_args_human():
     arg_list = []
+    const_args = ['--w2v', 'players/GoogleNews-vectors-negative300.bin',
+                  '--wordnet', 'ic-brown.dat']
 
     guesser = "human"
     for codemaster in codemasters:
         for _ in range(NUM_GAMES):
             arg_list.append(["python", "run_game.py", codemaster,
-                            guesser] + codemasters[codemaster])
+                            guesser] + codemasters[codemaster] + const_args)
 
     codemaster = "human"
     for guesser in guessers:
         for _ in range(NUM_GAMES):
             arg_list.append(["python", "run_game.py", codemaster,
-                            guesser] + guessers[guesser])
+                            guesser] + guessers[guesser] + const_args)
 
     return arg_list
 

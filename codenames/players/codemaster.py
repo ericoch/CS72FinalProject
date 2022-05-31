@@ -21,7 +21,7 @@ class Codemaster(ABC):
 
 class HumanCodemaster(Codemaster):
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         print("HUMAN CODEMASTER")
         super().__init__()
         pass

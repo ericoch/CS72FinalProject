@@ -6,6 +6,7 @@ glove.6B.200d.txt
 test.py
 *.ipynb
 results/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
