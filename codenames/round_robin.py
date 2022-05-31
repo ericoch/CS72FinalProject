@@ -2,7 +2,7 @@
 import multiprocessing as mp
 import subprocess
 import random
-NUM_GAMES = 1
+NUM_GAMES = 2
 
 
 def get_arg_list():
@@ -253,6 +253,7 @@ def generate_args():
         "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
         "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
         "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
+        "players.codemaster_w2vglove_03.AICodemaster":  ['--glove_cm', 'players/glove/wikipedia-news-300d-1M.vec'],
         "players.codemaster_glove_07.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.300.txt'],
         "players.codemaster_wn_lin.AICodemaster": [],
         "players.codemaster_random.AICodemaster": []
