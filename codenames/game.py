@@ -52,8 +52,6 @@ class Game:
             g_kwargs (dict, optional): 
                 kwargs passed to Guesser.
         """
-        self.human_codemaster = 'human' in str(type(self.codemaster))
-        self.human_guesser = 'human' in str(type(self.guesser))
 
         self.game_start_time = time.time()
         colorama.init()
@@ -65,6 +63,9 @@ class Game:
 
         self.codemaster = codemaster(**cm_kwargs)
         self.guesser = guesser(**g_kwargs)
+
+        self.human_codemaster = 'human' in str(type(self.codemaster))
+        self.human_guesser = 'human' in str(type(self.guesser))
 
         self.cm_kwargs = cm_kwargs
         self.g_kwargs = g_kwargs
@@ -295,7 +296,6 @@ class Game:
             self.codemaster.set_game_state(words_in_play, current_key_grid)
             # self._display_key_grid()
 
-
             if not self.human_guesser:
                 self._display_board_codemaster()
 
@@ -321,6 +321,7 @@ class Game:
                 guess_answer_index = words_in_play.index(
                     guess_answer.upper().strip())
                 game_condition = self._accept_guess(guess_answer_index)
+                print("GAME CONDITION: ", game_condition)
 
                 if game_condition == GameCondition.HIT_RED:
                     print("Hit red!")
