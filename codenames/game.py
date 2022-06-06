@@ -298,7 +298,7 @@ class Game:
             self.codemaster.set_game_state(words_in_play, current_key_grid)
             # self._display_key_grid()
 
-            if not self.human_guesser:
+            if not self.human_guesser or self.human_codemaster:
                 self._display_board_codemaster()
 
             # codemaster gives clue & number here
@@ -337,6 +337,9 @@ class Game:
                 # if guesser selected a civilian or a blue-paired word
                 elif game_condition == GameCondition.CONTINUE:
                     print("Hit a civilian or BLUE word :(")
+
+                    if self.human_guesser and self.human_codemaster:
+                        time.sleep(5)
                     break
 
                 elif game_condition == GameCondition.LOSS:
