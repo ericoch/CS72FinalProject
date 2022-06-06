@@ -7,6 +7,7 @@ import sys
 NUM_GAMES = 2
 
 codemasters = {
+<<<<<<< HEAD
     "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
     "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
     "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
@@ -18,13 +19,23 @@ codemasters = {
     "players.codemaster_gpt3_complex.AICodemaster": []
 
 
+=======
+    # "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
+    # "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
+    # "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
+    "players.codemaster_w2vglove_03.AICodemaster":  ['--glove_cm', 'players/glove/wiki-news-300d-1M.vec'],
+    # "players.codemaster_glove_07.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.300.txt'],
+    # "players.codemaster_wn_lin.AICodemaster": [],
+    # "players.codemaster_random.AICodemaster": []
+>>>>>>> 23e72cc (ui changes, anti-cheating, code repair)
 }
 
 guessers = {
     "players.guesser_w2v.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_w2vglove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_w2vglove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     # "players.guesser_wn_jcn.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+<<<<<<< HEAD
     "players.guesser_wn_lch.AIGuesser": [],
     # "players.guesser_wn_lin.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_wn_path.AIGuesser": [],
@@ -34,6 +45,15 @@ guessers = {
     "players.guesser_random.AIGuesser": [],
     "players.guesser_gpt3.AIGuesser": [],
 
+=======
+    # "players.guesser_wn_lch.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_lin.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_path.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_res.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_wn_wup.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.vector_guesser.VectorGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_random.AIGuesser": []
+>>>>>>> 23e72cc (ui changes, anti-cheating, code repair)
 }
 
 

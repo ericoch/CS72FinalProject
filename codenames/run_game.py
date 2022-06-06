@@ -56,18 +56,52 @@ class GameRun:
         # load codemaster class
         if args.codemaster == "human":
             self.codemaster = HumanCodemaster
-            print('human codemaster')
+            print('\nhuman codemaster (that\'s you!)\n')
+            print('You are about to play Codenames, a word association game\n')
+            print('The rules are simple:\n')
+            print(
+                'There is a codemaster (you) and a guesser (the computer), who are cooperating\n')
+            print('The board displayed contains 25 words\n')
+            print(
+                'Some words are RED (friendly) and some are BLUE (enemy). Some are CIVILIAN (neutral)\n')
+            print(
+                'The object of the game is to guess all of the RED words, and as few BLUE words as possible\n')
+            print('One word is ASSASSIN, if the computer guesses this word, you lose\n')
+            print(
+                'You will give clues about the words, and the computer will guess the words\n')
+            print('The format will be [clue] [number of words]\n')
+            print('An example: "rhino 4" means there are 4 words related to "rhino"\n')
+            print('GLHF\n')
+            print('please be patient while the game loads!\n')
+
         else:
             self.codemaster = self.import_string_to_class(args.codemaster)
-            print('loaded codemaster class')
+            # print('loaded codemaster class')
 
         # load guesser class
         if args.guesser == "human":
             self.guesser = HumanGuesser
-            print('human guesser')
+            print('\nhuman guesser (that\'s you!)\n')
+            print('You are about to play Codenames, a word association game\n')
+            print('The rules are simple:\n')
+            print(
+                'There is a codemaster (the computer) and a guesser (you), who are cooperating\n')
+            print('The board displayed contains 25 words\n')
+            print(
+                'Some words are RED (friendly) and some are BLUE (enemy). Some are CIVILIAN (neutral)\n')
+            print(
+                'The object of the game is to guess all of the RED words, and as few BLUE words as possible\n')
+            print('One word is ASSASSIN, if you guess this word, you lose\n')
+            print(
+                'The codemaster will give you clues about the words, and you will guess the words\n')
+            print('The format will be [clue] [number of words]\n')
+            print('An example: "rhino 4" means there are 4 words related to "rhino"\n')
+            print('GLHF\n')
+            print('please be patient while the game loads!\n')
+
         else:
             self.guesser = self.import_string_to_class(args.guesser)
-            print('loaded guesser class')
+            # print('loaded guesser class')
 
         # if the game is going to have an ai, load up word vectors
         if sys.argv[1] != "human" or sys.argv[2] != "human":
@@ -75,29 +109,29 @@ class GameRun:
                 brown_ic = Game.load_wordnet(args.wordnet)
                 self.g_kwargs["brown_ic"] = brown_ic
                 self.cm_kwargs["brown_ic"] = brown_ic
-                print('loaded wordnet')
+                # print('loaded wordnet')
 
             if args.glove is not None:
                 glove_vectors = Game.load_glove_vecs(args.glove)
                 self.g_kwargs["glove_vecs"] = glove_vectors
                 self.cm_kwargs["glove_vecs"] = glove_vectors
-                print('loaded glove vectors')
+                # print('loaded glove vectors')
 
             if args.w2v is not None:
                 w2v_vectors = Game.load_w2v(args.w2v)
                 self.g_kwargs["word_vectors"] = w2v_vectors
                 self.cm_kwargs["word_vectors"] = w2v_vectors
-                print('loaded word vectors')
+                # print('loaded word vectors')
 
             if args.glove_cm is not None:
                 glove_vectors = Game.load_glove_vecs(args.glove_cm)
                 self.cm_kwargs["glove_vecs"] = glove_vectors
-                print('loaded glove vectors')
+                # print('loaded glove vectors')
 
             if args.glove_guesser is not None:
                 glove_vectors = Game.load_glove_vecs(args.glove_guesser)
                 self.g_kwargs["glove_vecs"] = glove_vectors
-                print('loaded glove vectors')
+                # print('loaded glove vectors')
 
         # set seed so that board/keygrid can be reloaded later
         if args.seed == 'time':
@@ -124,6 +158,7 @@ class GameRun:
 
 
 if __name__ == "__main__":
+    print("The game is starting...")
     game_setup = GameRun()
 
     game = Game(game_setup.codemaster,

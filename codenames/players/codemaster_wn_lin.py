@@ -41,7 +41,7 @@ class AICodemaster(Codemaster):
                 bad_words.append(self.words[i].lower())
             else:
                 red_words.append(self.words[i].lower())
-        print("RED:\t", red_words)
+        # print("RED:\t", red_words)
 
         for red_word in red_words:
             for synset_in_cmwordlist in self.syns:
@@ -49,8 +49,9 @@ class AICodemaster(Codemaster):
                 for red_synset in wordnet.synsets(red_word):
                     try:
                         # only if the two compared words have the same part of speech
-                        lin_score = synset_in_cmwordlist.lin_similarity(red_synset, self.brown_ic)
-                    except :
+                        lin_score = synset_in_cmwordlist.lin_similarity(
+                            red_synset, self.brown_ic)
+                    except:
                         continue
                     if lin_score:
                         if not self.arr_not_in_word(synset_in_cmwordlist.lemma_names()[0], red_words + bad_words):

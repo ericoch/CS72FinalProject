@@ -64,8 +64,10 @@ class Game:
         self.codemaster = codemaster(**cm_kwargs)
         self.guesser = guesser(**g_kwargs)
 
-        self.human_codemaster = 'human' in str(type(self.codemaster))
-        self.human_guesser = 'human' in str(type(self.guesser))
+        self.human_codemaster = 'human' in str(type(self.codemaster)).lower()
+        self.human_guesser = 'human' in str(type(self.guesser)).lower()
+        # print("GUESSER:")
+        # print(str(type(self.guesser)))
 
         self.cm_kwargs = cm_kwargs
         self.g_kwargs = g_kwargs
@@ -80,7 +82,7 @@ class Game:
             self.seed = seed
             random.seed(int(seed))
 
-        print("seed:", self.seed)
+        # print("seed:", self.seed)
 
         # load board words
         with open("game_wordpool.txt", "r") as f:
@@ -133,15 +135,15 @@ class Game:
         for i in range(len(self.words_on_board)):
             if counter >= 1 and i % 5 == 0:
                 print("\n")
-            if self.key_grid[i] is 'Red':
+            if self.key_grid[i] == 'Red':
                 print(str.center(colorama.Fore.RED +
                       self.words_on_board[i], 15), " ", end='')
                 counter += 1
-            elif self.key_grid[i] is 'Blue':
+            elif self.key_grid[i] == 'Blue':
                 print(str.center(colorama.Fore.BLUE +
                       self.words_on_board[i], 15), " ", end='')
                 counter += 1
-            elif self.key_grid[i] is 'Civilian':
+            elif self.key_grid[i] == 'Civilian':
                 print(str.center(colorama.Fore.RESET +
                       self.words_on_board[i], 15), " ", end='')
                 counter += 1
@@ -176,15 +178,15 @@ class Game:
         for i in range(len(self.key_grid)):
             if counter >= 1 and i % 5 == 0:
                 print("\n")
-            if self.key_grid[i] is 'Red':
+            if self.key_grid[i] == 'Red':
                 print(str.center(colorama.Fore.RED +
                       self.key_grid[i], 15), " ", end='')
                 counter += 1
-            elif self.key_grid[i] is 'Blue':
+            elif self.key_grid[i] == 'Blue':
                 print(str.center(colorama.Fore.BLUE +
                       self.key_grid[i], 15), " ", end='')
                 counter += 1
-            elif self.key_grid[i] is 'Civilian':
+            elif self.key_grid[i] == 'Civilian':
                 print(str.center(colorama.Fore.RESET +
                       self.key_grid[i], 15), " ", end='')
                 counter += 1
@@ -282,9 +284,9 @@ class Game:
             shutil.rmtree("results")
 
     def run(self):
-        print(self.codemaster)
-        print(type(self.codemaster).__name__)
-        print(type(self.codemaster))
+        # print(self.codemaster)
+        # print(type(self.codemaster).__name__)
+        # print(type(self.codemaster))
         """Function that runs the codenames game between codemaster and guesser"""
         game_condition = GameCondition.HIT_RED
         game_counter = 0
@@ -321,18 +323,20 @@ class Game:
                 guess_answer_index = words_in_play.index(
                     guess_answer.upper().strip())
                 game_condition = self._accept_guess(guess_answer_index)
-                print("GAME CONDITION: ", game_condition)
+                # print("GAME CONDITION: ", game_condition)
 
                 if game_condition == GameCondition.HIT_RED:
-                    print("Hit red!")
-                    print('\n' * 2)
+                    print("Hit a RED word!")
+                    print('\n')
                     self._display_board()
                     guess_num += 1
-                    print("Keep Guessing? the clue is ", clue, clue_num)
+                    print("Do you want to keep guessing? the clue is ",
+                          clue, clue_num)
                     keep_guessing = self.guesser.keep_guessing()
 
                 # if guesser selected a civilian or a blue-paired word
                 elif game_condition == GameCondition.CONTINUE:
+                    print("Hit a civilian or BLUE word :(")
                     break
 
                 elif game_condition == GameCondition.LOSS:
@@ -341,7 +345,7 @@ class Game:
                     self._display_board_codemaster()
                     if self.do_log:
                         self.write_results(game_counter)
-                    print("You Lost")
+                    print("You Lost :(")
                     print("Game Counter:", game_counter)
 
                 elif game_condition == GameCondition.WIN:
@@ -349,5 +353,5 @@ class Game:
                     self._display_board_codemaster()
                     if self.do_log:
                         self.write_results(game_counter)
-                    print("You Won")
+                    print("You Won!")
                     print("Game Counter:", game_counter)
