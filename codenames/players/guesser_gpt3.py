@@ -3,8 +3,9 @@ import random
 
 from players.codemaster import Codemaster
 import openai
+import os
 
-openai.api_key = "sk-4M4PNISyEDZCz4KSK4gjcv49t63bEXQrLC4bT83R"
+openai.api_key = os.getenv('OPENAI_KEY')
 
 setup = """
 Here are instructions to play the game Codenames:

@@ -3,19 +3,23 @@ import random
 from players.codemaster import Codemaster
 import openai
 
-openai.api_key = "sk-4M4PNISyEDZCz4KSK4gjcv49t63bEXQrLC4bT83R"
+import os
+
+openai.api_key = os.getenv('OPENAI_KEY')
 
 setup = """
 Here are instructions to play the game Codenames:
 
 Given a list of words, a clue, and a number, determine which set of words correspond most closely to the clue. You must give a list of words that correspond with the clue, with the same number of words as the number you were given. They must be ordered from most similar to the clue to least similar. 
 
-Also, say the number of words the clue applies to, from 1 to 4.
+After the clue, say the number of words the clue applies to, from 1 to 3. If the clue applies to 3 red words, give the number 3.
 For example:
 
 red words: nut, bark, octopus, candy, birch. blue words: clock, bed. clue: tree 3
+red words: worm, tower. blue words: lab chick fire. clue: building 1
+red words: mouse, undertaker, stadium. blue words: gold, drill, fall, rock. clue: funeral 1
 red words: nut, bark, octopus, candy. blue words: clock, bed, pine, maple. clue: food 2
-red words: yarn, bottle, white, shoe, knit. blue words: pants, chair. clue: sock 4
+red words: yarn, bottle, white, shoe, knit. blue words: pants, chair. clue: sock 3
 red words: parachute, worm, theater, pants, buffalo. blue words: blanket, laser. clue: animal 2
 
 """

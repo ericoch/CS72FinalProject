@@ -3,17 +3,23 @@ import random
 from players.codemaster import Codemaster
 import openai
 
-openai.api_key = "sk-4M4PNISyEDZCz4KSK4gjcv49t63bEXQrLC4bT83R"
+import os
+openai.api_key = os.getenv('OPENAI_KEY')
 
 setup = """
 Here are instructions to play the game Codenames:
 
-Given a list of words, come up with a single new word that describes as many words as possible. The clue must be a single word that is not in the list of words. Also, say the number of words the clue applies to. 
+Given a list of words, a clue, and a number, determine which set of words correspond most closely to the clue. You must give a list of words that correspond with the clue, with the same number of words as the number you were given. They must be ordered from most similar to the clue to least similar. 
+
+After the clue, say the number of words the clue applies to, from 1 to 3. If the clue applies to 3 words, give the number 3.
 For example:
 
-words: nut, bark, octopus, candy. clue: tree 3
-words: yarn, bottle, white, shoe, knit. clue: sock 4
-words: parachute, worm, theater, pants, buffalo: clue: animal 2
+words: nut, bark, octopus, candy, birch. clue: tree 3
+words: worm, tower. clue: building 1
+words: mouse, undertaker, stadium. clue: funeral 1
+words: nut, bark, octopus, candy. clue: food 2
+words: yarn, bottle, white, shoe, knit. clue: sock 3
+words: parachute, worm, theater, pants, buffalo. clue: animal 2
 
 """
 
@@ -66,7 +72,7 @@ class AICodemaster(Codemaster):
                 print("Failed to get clue, defaulting to random word")
                 return self.get_rand_clue()
         if clue in red_words:
-            print("Clue is in the list of red words, defaulting to random word")
+            print("Clue is in the list of words, defaulting to random word")
             return self.get_rand_clue()
         return clue, num
 
