@@ -4,7 +4,7 @@ import subprocess
 import random
 import sys
 
-NUM_GAMES = 1
+NUM_GAMES = 10
 
 codemasters = {
     "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt', '--w2v', 'players/GoogleNews-vectors-negative300.bin'],
