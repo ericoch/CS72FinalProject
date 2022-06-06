@@ -13,7 +13,11 @@ codemasters = {
     # "players.codemaster_w2vglove_03.AICodemaster":  ['--glove_cm', 'players/glove/wiki-news-300d-1M.vec'],
     "players.codemaster_glove_07.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.300.txt'],
     "players.codemaster_wn_lin.AICodemaster": [],
-    "players.codemaster_random.AICodemaster": []
+    "players.codemaster_random.AICodemaster": [],
+    "players.codemaster_gpt3.AICodemaster": [],
+    "players.codemaster_gpt3_complex.AICodemaster": []
+
+
 }
 
 guessers = {
@@ -27,7 +31,9 @@ guessers = {
     # "players.guesser_wn_res.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_wn_wup.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.vector_guesser.VectorGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_random.AIGuesser": []
+    "players.guesser_random.AIGuesser": [],
+    "players.guesser_gpt3.AIGuesser": [],
+
 }
 
 
