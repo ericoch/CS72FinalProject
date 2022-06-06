@@ -15,12 +15,30 @@ Given a list of words, a clue, and a number, determine which set of words corres
 After the clue, say the number of words the clue applies to, from 1 to 3. If the clue applies to 3 red words, give the number 3.
 For example:
 
-red words: nut, bark, octopus, candy, birch. blue words: clock, bed. clue: tree 3
-red words: worm, tower. blue words: lab chick fire. clue: building 1
-red words: mouse, undertaker, stadium. blue words: gold, drill, fall, rock. clue: funeral 1
-red words: nut, bark, octopus, candy. blue words: clock, bed, pine, maple. clue: food 2
-red words: yarn, bottle, white, shoe, knit. blue words: pants, chair. clue: sock 3
-red words: parachute, worm, theater, pants, buffalo. blue words: blanket, laser. clue: animal 2
+red words: nut, bark, octopus, candy, birch. 
+blue words: clock, bed. 
+clue: tree 3
+
+red words: worm, tower. 
+blue words: lab chick fire. 
+clue: building 1
+
+red words: mouse, undertaker, stadium. 
+blue words: gold, drill, fall, rock. 
+clue: funeral 1
+
+red words: nut, bark, octopus, candy. 
+blue words: clock, bed, pine, maple. 
+clue: food 2
+
+red words: yarn, bottle, white, shoe, knit. 
+blue words: pants, chair. 
+clue: sock 3
+
+red words: parachute, worm, theater, pants, buffalo. 
+blue words: blanket, laser. 
+clue: animal 2
+
 
 """
 
@@ -52,7 +70,7 @@ class AICodemaster(Codemaster):
 
         print("RED:\t", red_words)
 
-        prompt = "red words: %s. blue words: %s. clue:" % (
+        prompt = "red words: %s.\nblue words: %s.\nclue:" % (
             ", ".join(red_words), ", ".join(blue_words))
         print(prompt)
         response = openai.Completion.create(
