@@ -1,5 +1,22 @@
 from players.guesser import Guesser
 import random
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
+
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This is a GPT-3 guesser, which randomly guesses a word on the board.
+
+It is using the codemaster template
+
+"""
 
 from players.codemaster import Codemaster
 import openai
@@ -9,6 +26,7 @@ load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_KEY')
 
+# set up instructions for the text completion
 setup = """
 Here are instructions to play the game Codenames:
 
@@ -46,7 +64,7 @@ class AIGuesser(Guesser):
         remaining_words = [word.lower()
                            for word in self.words if '*' not in word]
         prompt = "words: %s. clue: %s %s. answers:" % (
-            ", ".join(remaining_words), self.clue, self.num)
+            ", ".join(remaining_words), self.clue, self.num)  # build prompt from words
 
         # print(prompt)
         response = openai.Completion.create(
@@ -62,7 +80,7 @@ class AIGuesser(Guesser):
         answer = response['choices'][0]['text'].strip()
         answer = answer.split('\n')[0].split(',')
         print('GPT3 response: ', answer)
-        try:
+        try:  # parse GPT-3 response
             answer = answer[0].strip()
             if answer in remaining_words:
                 self.num -= 1

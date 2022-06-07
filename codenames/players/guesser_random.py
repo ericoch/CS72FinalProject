@@ -1,5 +1,19 @@
-import scipy.spatial.distance
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
 
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This is a random guesser player, which randomly guesses a word on the board
+It is using the codemaster template
+
+"""
 from players.guesser import Guesser
 import random
 

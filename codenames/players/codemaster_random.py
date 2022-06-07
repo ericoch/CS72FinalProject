@@ -1,5 +1,20 @@
-from operator import itemgetter
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
 
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This is a random codemaster player, which randomly guesses a word on the board.
+
+It is using the codemaster template
+
+"""
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk.stem.lancaster import LancasterStemmer

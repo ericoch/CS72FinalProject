@@ -1,5 +1,21 @@
 import random
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
 
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This is a GPT-3 codemaster, which randomly guesses a word on the board.
+
+It is using the codemaster template
+
+"""
 from players.codemaster import Codemaster
 import openai
 
@@ -9,6 +25,7 @@ load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_KEY')
 
+# set up simple instructions for the GPT-3 model
 setup = """
 Here are instructions to play the game Codenames:
 
@@ -43,12 +60,12 @@ class AICodemaster(Codemaster):
 
     def get_clue(self):
 
-        red_words = []
+        red_words = []  # get only red words
         for i in range(25):
             if self.maps[i] == "Red" and '*' not in self.words[i]:
                 red_words.append(self.words[i].lower())
 
-        prompt = "words: %s. clue:" % ", ".join(red_words)
+        prompt = "words: %s. clue:" % ", ".join(red_words)  # build prompt
         # print(prompt)
         response = openai.Completion.create(
             engine="text-davinci-002",
@@ -61,7 +78,7 @@ class AICodemaster(Codemaster):
 
         )
         answer = response['choices'][0]['text'].strip().lower()
-        answer = answer.split('\n')[0].split()
+        answer = answer.split('\n')[0].split()  # parse response
         print('GPT3 response: ', answer)
         try:
             clue = answer[0]

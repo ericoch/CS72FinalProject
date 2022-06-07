@@ -1,3 +1,21 @@
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
+
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This is a GPT-3 codemaster, which randomly guesses a word on the board.
+
+It is using the codemaster template
+
+"""
+
 import random
 
 from players.codemaster import Codemaster
@@ -8,6 +26,7 @@ from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv('OPENAI_KEY')
 
+# set up instructions for the text completion, with full rules
 setup = """
 Here are instructions to play the game Codenames:
 
@@ -58,11 +77,11 @@ class AICodemaster(Codemaster):
         self.words = words
         self.maps = maps
 
-    def get_clue(self):
+    def get_clue(self):  # get a clue from the game state
 
         print(', '.join([w.lower() for w in self.words]))
         red_words = []
-        blue_words = []
+        blue_words = []  # parse the words by color
         for i in range(25):
             if self.maps[i] == "Red" and '*' not in self.words[i]:
                 red_words.append(self.words[i].lower())
@@ -72,7 +91,7 @@ class AICodemaster(Codemaster):
         print("RED:\t", red_words)
 
         prompt = "red words: %s.\nblue words: %s.\nclue:" % (
-            ", ".join(red_words), ", ".join(blue_words))
+            ", ".join(red_words), ", ".join(blue_words))  # generate a prompt for GPT-3
         # print(prompt)
         response = openai.Completion.create(
             engine="text-davinci-002",
@@ -84,10 +103,11 @@ class AICodemaster(Codemaster):
             presence_penalty=2,
 
         )
+        # get the response text
         answer = response['choices'][0]['text'].strip()
         answer = answer.split('\n')[0].split()
         print('GPT3 response: ', answer)
-        try:
+        try:  # try parsing it into WORD NUMBER
             clue = answer[0]
             num = int(answer[1])
         except:
