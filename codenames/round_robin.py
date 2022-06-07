@@ -12,16 +12,19 @@ codemasters = {
     "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt', '--w2v', 'players/GoogleNews-vectors-negative300.bin'],
     "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
     "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt', '--w2v', 'players/GoogleNews-vectors-negative300.bin'],
+    "players.codemaster_fasttext.AICodemaster": ['--glove_cm', 'players/glove/wiki-news-300d-1M.vec'],
     "players.codemaster_wn_lin.AICodemaster": [],
     "players.codemaster_random.AICodemaster": [],
     "players.codemaster_gpt3.AICodemaster": [],
     "players.codemaster_gpt3_complex.AICodemaster": []
+
 }
 
 guessers = {
     "players.guesser_w2v.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_w2vglove.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    "players.guesser_fasttext.AIGuesser": ['--glove_guesser', 'players/glove/wiki-news-300d-1M.vec'],
     "players.guesser_wn_lch.AIGuesser": [],
     "players.guesser_wn_path.AIGuesser": [],
     "players.guesser_wn_wup.AIGuesser": [],
@@ -64,8 +67,16 @@ def generate_args_human():
 
 
 def get_arg():
-    vals = [json.loads(line)
-            for line in open('results/bot_results_new_style.txt')]
+
+    try:
+        vals = [json.loads(line)
+                for line in open('results/bot_results_new_style.txt')]
+    except:
+        for line in open("results/bot_results_new_style.txt"):
+            print(line)
+            print(json.loads(line))
+        exit()
+
     df = pd.DataFrame(vals)
 
     df = df.drop('cm_kwargs', axis=1).drop(
