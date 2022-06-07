@@ -1,5 +1,5 @@
 #  COSC72 Final Project
-This project is an offshoot of the framework provided by the [Codenames AI Competition]([e-codenames-ai-competition/home](https://sites.google.com/view/the-codenames-ai-competition/home)). Read our README [here](PROJECT.md) for instructions specific to our project. Continue reading for generic installation instructions and explanations of the competition format.
+This project is an offshoot of the framework provided by the [Codenames AI Competition](https://sites.google.com/view/the-codenames-ai-competition/home). Read our README [here](PROJECT.md) for instructions specific to our project. Continue reading for generic installation instructions and explanations of the competition format.
 
 
 ## Codenames AI Competition 
