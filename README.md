@@ -1,5 +1,8 @@
-# Codenames AI Competition Framework
+#  COSC72 Final Project
+This project is an offshoot of the framework provided by the [Codenames AI Competition](e-codenames-ai-competition/home). Read our README [here](PROJECT.md) for instructions specific to our project. Continue reading for generic installation instructions and explanations of the competition format.
 
+
+## Codenames AI Competition 
 This is the Codenames AI Competition Framework.  The purpose of this framework is to enable an AI competition for the game "Codenames" by Vlaada Chvatil.  There are large number of AI competitions built around games (and even more platforms using games as a testbed for AI), but with few exceptions these have focused on things that AI is likely to be good at (fine, pixel-perfect control or search through a large state space).  The purpose of this competition is to test AI in a framework that:
 
 * Requires the understanding of language
@@ -265,11 +268,6 @@ python
 
 Install colorama for colored console output:
 ```pip install -U colorama```
-
-Also install packages
-```pip install python-dotenv openai```
-
-To run the GPT-3 agent provide your GPT-3 API key in a .env file. 
 
 
 ### These files can optionally be installed as well, provide path through command arguments:
