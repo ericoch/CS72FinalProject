@@ -1,0 +1,1 @@
+cat *new_style* | cat | uniq  > bot_results_combined.txt
