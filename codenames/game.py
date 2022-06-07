@@ -1,3 +1,21 @@
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
+
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This code runs a single game. The base logic was from the original repo, but we have made changes
+to make it easier to use.
+
+"""
+
+
 import random
 import time
 import json

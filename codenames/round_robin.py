@@ -1,4 +1,18 @@
+"""
+Nathan Schneider
+schnei.nathan@gmail.com
 
+Eric Och
+Eric.H.Och.22@dartmouth.edu
+
+Ian Hou
+Ian.K.Hou.22@dartmouth.edu
+
+COSC 072 Final Project
+6/7/2022
+This code runs a round-robin style game of codemasters and guessers.
+
+"""
 import multiprocessing as mp
 import subprocess
 import random
@@ -8,6 +22,7 @@ import json
 
 NUM_GAMES = 10
 
+# defined codemasters and their arguments
 codemasters = {
     "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt', '--w2v', 'players/GoogleNews-vectors-negative300.bin'],
     "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
@@ -19,19 +34,21 @@ codemasters = {
     "players.codemaster_gpt3_complex.AICodemaster": []
 
 }
-
+# guessers and their arguments
 guessers = {
-    # "players.guesser_w2v.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    # "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    # "players.guesser_w2vglove.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    "players.guesser_w2v.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    "players.guesser_w2vglove.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_fasttext.AIGuesser": ['--glove_guesser', 'players/glove/wiki-news-300d-1M.vec'],
-    # "players.guesser_wn_lch.AIGuesser": [],
-    # "players.guesser_wn_path.AIGuesser": [],
-    # "players.guesser_wn_wup.AIGuesser": [],
-    # "players.guesser_random.AIGuesser": [],
-    # "players.guesser_gpt3.AIGuesser": [],
+    "players.guesser_wn_lch.AIGuesser": [],
+    "players.guesser_wn_path.AIGuesser": [],
+    "players.guesser_wn_wup.AIGuesser": [],
+    "players.guesser_random.AIGuesser": [],
+    "players.guesser_gpt3.AIGuesser": [],
 
 }
+
+# this function generates an ordered list of arguments for bots to play against each other
 
 
 def generate_args():
@@ -45,6 +62,8 @@ def generate_args():
                                 guesser] + codemasters[codemaster] + guessers[guesser] + const_args)
 
     return arg_list
+
+# this function generates an ordered list of arguments for bots to play with a human
 
 
 def generate_args_human():
@@ -66,6 +85,7 @@ def generate_args_human():
     return arg_list
 
 
+# this function returns a single game configuration based on the least common matchups in the data
 def get_arg():
 
     try:
@@ -101,6 +121,7 @@ def get_arg():
             guesser] + codemasters[codemaster] + guessers[guesser] + const_args
 
 
+# this function returns a single human game configuration based on the least common matchups in the data
 def get_arg_human():
 
     try:
@@ -157,7 +178,7 @@ def get_arg_human():
             guesser] + codemaster_args + guesser_args + const_args
 
 
-def run_game(args):
+def run_game(args):  # runs the game with the given arguments
     print(args)
     subprocess.run(args)
 
@@ -174,14 +195,16 @@ def run_min_game_human(arg):
 
 def main():
 
+    # if the user wants to play as a human
     if len(sys.argv) > 1 and sys.argv[1] == "--human":
 
-        pool = mp.Pool(1)
+        pool = mp.Pool(1)   # single pool for human games
         pool.map(run_min_game_human, [0]*10000)
 
     else:
+        # multiple pools for multiprocessing games (beware of memory usage)
         pool = mp.Pool(2)
-        pool.map(run_min_game, [0]*10000)
+        pool.map(run_min_game, [0]*10000)  # map function usage
 
 
 if __name__ == "__main__":
