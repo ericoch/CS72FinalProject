@@ -48,7 +48,7 @@ class AIGuesser(Guesser):
         prompt = "words: %s. clue: %s %s. answers:" % (
             ", ".join(remaining_words), self.clue, self.num)
 
-        print(prompt)
+        # print(prompt)
         response = openai.Completion.create(
             engine="text-davinci-002",
             prompt=setup+prompt,

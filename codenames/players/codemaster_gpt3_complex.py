@@ -73,7 +73,7 @@ class AICodemaster(Codemaster):
 
         prompt = "red words: %s.\nblue words: %s.\nclue:" % (
             ", ".join(red_words), ", ".join(blue_words))
-        print(prompt)
+        # print(prompt)
         response = openai.Completion.create(
             engine="text-davinci-002",
             prompt=setup+prompt,

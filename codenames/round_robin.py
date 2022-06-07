@@ -12,7 +12,7 @@ codemasters = {
     "players.codemaster_w2v_05.AICodemaster": ['--glove_cm', 'players/glove/glove.6B.200d.txt', '--w2v', 'players/GoogleNews-vectors-negative300.bin'],
     "players.codemaster_glove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt'],
     "players.codemaster_w2vglove_05.AICodemaster":  ['--glove_cm', 'players/glove/glove.6B.200d.txt', '--w2v', 'players/GoogleNews-vectors-negative300.bin'],
-    "players.codemaster_fasttext.AICodemaster": ['--glove_cm', 'players/glove/wiki-news-300d-1M.vec'],
+    # "players.codemaster_fasttext.AICodemaster": ['--glove_cm', 'players/glove/wiki-news-300d-1M.vec'],
     "players.codemaster_wn_lin.AICodemaster": [],
     "players.codemaster_random.AICodemaster": [],
     "players.codemaster_gpt3.AICodemaster": [],
@@ -21,15 +21,15 @@ codemasters = {
 }
 
 guessers = {
-    "players.guesser_w2v.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
-    "players.guesser_w2vglove.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_w2v.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_glove.AIGuesser": ['--glove_guesser', 'players/glove/glove.6B.300d.txt'],
+    # "players.guesser_w2vglove.AIGuesser": ['--w2v', 'players/GoogleNews-vectors-negative300.bin', '--glove_guesser', 'players/glove/glove.6B.300d.txt'],
     "players.guesser_fasttext.AIGuesser": ['--glove_guesser', 'players/glove/wiki-news-300d-1M.vec'],
-    "players.guesser_wn_lch.AIGuesser": [],
-    "players.guesser_wn_path.AIGuesser": [],
-    "players.guesser_wn_wup.AIGuesser": [],
-    "players.guesser_random.AIGuesser": [],
-    "players.guesser_gpt3.AIGuesser": [],
+    # "players.guesser_wn_lch.AIGuesser": [],
+    # "players.guesser_wn_path.AIGuesser": [],
+    # "players.guesser_wn_wup.AIGuesser": [],
+    # "players.guesser_random.AIGuesser": [],
+    # "players.guesser_gpt3.AIGuesser": [],
 
 }
 
@@ -93,11 +93,68 @@ def get_arg():
             vals[(codemaster, guesser)] = count
 
     min_matchup = min(vals, key=vals.get)
+    # print(vals)
     print("Found min matchup: ", min_matchup, vals[min_matchup])
 
     (codemaster, guesser) = min_matchup
     return ["python", "run_game.py", codemaster,
             guesser] + codemasters[codemaster] + guessers[guesser] + const_args
+
+
+def get_arg_human():
+
+    try:
+        vals = [json.loads(line)
+                for line in open('results/bot_results_new_style.txt')]
+    except:
+        for line in open("results/bot_results_new_style.txt"):
+            print(line)
+            print(json.loads(line))
+        exit()
+
+    df = pd.DataFrame(vals)
+
+    df = df.drop('cm_kwargs', axis=1).drop(
+        'g_kwargs', axis=1).drop('game_name', axis=1)
+
+    const_args = ['--wordnet', 'ic-brown.dat']
+    vals = {}
+
+    hg = "players.guesser.HumanGuesser"
+    hcm = "players.codemaster.HumanCodemaster"
+
+    for guesser in guessers:
+        cm = "<class '%s'>" % hcm
+        g = "<class '%s'>" % guesser
+        count = df.loc[(df['codemaster'] == cm) & (
+            df['guesser'] == g)]['R'].count()
+        vals[(hcm, guesser)] = count
+
+    for codemaster in codemasters:
+        cm = "<class '%s'>" % codemaster
+        g = "<class '%s'>" % hg
+        count = df.loc[(df['codemaster'] == cm) & (
+            df['guesser'] == g)]['R'].count()
+        vals[(codemaster, hg)] = count
+
+    print(vals)
+    min_matchup = min(vals, key=vals.get)
+    print("Found min matchup: ", min_matchup, vals[min_matchup])
+
+    (codemaster, guesser) = min_matchup
+
+    if not 'human' in codemaster.lower():
+        codemaster_args = codemasters[codemaster]
+    else:
+        codemaster_args = []
+
+    if not 'human' in guesser.lower():
+        guesser_args = guessers[guesser]
+    else:
+        guesser_args = []
+
+    return ["python", "run_game.py", codemaster,
+            guesser] + codemaster_args + guesser_args + const_args
 
 
 def run_game(args):
@@ -110,18 +167,20 @@ def run_min_game(arg):
     run_game(args)
 
 
+def run_min_game_human(arg):
+    args = get_arg_human()
+    run_game(args)
+
+
 def main():
 
     if len(sys.argv) > 1 and sys.argv[1] == "--human":
-        arg_list = generate_args_human()
-        print("Number of games planned: ", len(arg_list))
-        random.shuffle(arg_list)
+
         pool = mp.Pool(1)
-        pool.map(run_game, arg_list)
+        pool.map(run_min_game_human, [0]*10000)
 
     else:
-        arg_list = generate_args()
-        pool = mp.Pool(3)
+        pool = mp.Pool(2)
         pool.map(run_min_game, [0]*10000)
 
 

@@ -266,6 +266,11 @@ python
 Install colorama for colored console output:
 ```pip install -U colorama```
 
+Also install packages
+```pip install python-dotenv openai```
+
+To run the GPT-3 agent provide your GPT-3 API key in a .env file. 
+
 
 ### These files can optionally be installed as well, provide path through command arguments:
 * [Glove Vectors](https://nlp.stanford.edu/data/glove.6B.zip) (~2.25 GB)

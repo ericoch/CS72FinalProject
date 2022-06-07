@@ -49,7 +49,7 @@ class AICodemaster(Codemaster):
                 red_words.append(self.words[i].lower())
 
         prompt = "words: %s. clue:" % ", ".join(red_words)
-        print(prompt)
+        # print(prompt)
         response = openai.Completion.create(
             engine="text-davinci-002",
             prompt=setup+prompt,

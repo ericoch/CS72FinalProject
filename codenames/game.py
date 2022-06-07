@@ -314,6 +314,7 @@ class Game:
 
             game_condition = GameCondition.HIT_RED
             while guess_num <= clue_num and keep_guessing and game_condition == GameCondition.HIT_RED:
+
                 self.guesser.set_board(words_in_play)
                 guess_answer = self.guesser.get_answer()
                 print("GUESSER: ", guess_answer)
@@ -333,6 +334,8 @@ class Game:
                     print("Do you want to keep guessing? the clue is ",
                           clue, clue_num)
                     keep_guessing = self.guesser.keep_guessing()
+                    if not keep_guessing and self.human_guesser and self.human_codemaster:
+                        time.sleep(5)
 
                 # if guesser selected a civilian or a blue-paired word
                 elif game_condition == GameCondition.CONTINUE:
